@@ -28,6 +28,13 @@ inline std::string &to_lower_(std::string &str)
     return str;
 }
 
+// // convert to lower by jinglong in 2021年9月9日20:42:32
+// inline std::string &to_lower_1_(std::string &str)
+// {
+//     std::transform(str.begin(), str.end(), str.begin(), [](unsigned char ch) { return std::tolower(ch); });
+//     return str;
+// }
+
 // inplace trim spaces
 inline std::string &trim_(std::string &str)
 {
@@ -62,6 +69,9 @@ inline std::pair<std::string, std::string> extract_kv_(char sep, const std::stri
 
 // return vector of key/value pairs from sequence of "K1=V1,K2=V2,.."
 // "a=AAA,b=BBB,c=CCC,.." => {("a","AAA"),("b","BBB"),("c", "CCC"),...}
+// "info,mylogger=debug"
+// "info"
+// "mylogger=debug"
 inline std::unordered_map<std::string, std::string> extract_key_vals_(const std::string &str)
 {
     std::string token;
