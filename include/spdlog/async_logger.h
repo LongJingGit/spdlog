@@ -58,6 +58,8 @@ protected:
     void backend_flush_();
 
 private:
+    // weak_ptr ：只使用对象，并不管理对象的生命周期，并且不会增加引用计数。使用之前需要先用 .lock 接口转换为 shared_ptr 智能指针
+    // 线程池的生命周期是由 registry 来管理的
     std::weak_ptr<details::thread_pool> thread_pool_;
     async_overflow_policy overflow_policy_;
 };
