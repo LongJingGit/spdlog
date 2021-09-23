@@ -127,6 +127,10 @@ void SPDLOG_INLINE thread_pool::post_async_msg_(async_msg &&new_msg, async_overf
 {
     if (overflow_policy == async_overflow_policy::block)
     {
+        /**
+         * 为什么这里没有加锁？
+         *    因为在 mpmc 中的 enqueue 方法中已经进行了加锁操作
+         */
         q_.enqueue(std::move(new_msg));
     }
     else
