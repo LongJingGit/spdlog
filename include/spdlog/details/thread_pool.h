@@ -78,6 +78,56 @@ struct async_msg : log_msg_buffer
     {}
 };
 
+// RAII 手法封装的 thread。marked by jinglong in 2021年9月27日09:49:33
+class SPDLOG_API thread_guard
+{
+public:
+    // 使用引用传参，不用在构造函数中判断线程是否有效
+    explicit thread_guard(std::thread &t)
+        : t_(t)
+    {}
+
+    ~thread_guard()
+    {
+        if (t_.joinable())
+        {
+            t_.join();
+        }
+    }
+
+    thread_guard(const thread_guard &) = delete;
+    thread_guard &operator=(const thread_guard &) = delete;
+
+private:
+    std::thread &t_;
+};
+
+// RAII 手法封装的 thread。marked by jinglong in 2021年9月27日09:49:33
+class SPDLOG_API scoped_thread
+{
+public:
+    // 使用的是移动语义，所以必须在构造函数中判断该线程是否有效
+    explicit scoped_thread(std::thread t)
+        : t_(std::move(t))
+    {
+        if (!t_.joinable())
+        {
+            throw std::logic_error("No thread");
+        }
+    }
+
+    ~scoped_thread()
+    {
+        t_.joinable();
+    }
+
+    scoped_thread(const scoped_thread &) = delete;
+    scoped_thread &operator=(const scoped_thread &) = delete;
+
+private:
+    std::thread t_;
+};
+
 class SPDLOG_API thread_pool
 {
 public:
