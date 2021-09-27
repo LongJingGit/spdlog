@@ -28,6 +28,8 @@ SPDLOG_INLINE const filename_t &basic_file_sink<Mutex>::filename() const
 template<typename Mutex>
 SPDLOG_INLINE void basic_file_sink<Mutex>::sink_it_(const details::log_msg &msg)
 {
+    // 为什么不直接在这里加锁呢？（应该可以直接在这里进行加锁）
+    // 不可以在 write 接口里面进行加锁：因为在这里将 message 进行了格式化
     memory_buf_t formatted;
     base_sink<Mutex>::formatter_->format(msg, formatted);
     file_helper_.write(formatted);

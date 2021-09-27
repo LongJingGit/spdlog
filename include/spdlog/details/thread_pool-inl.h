@@ -150,6 +150,7 @@ void SPDLOG_INLINE thread_pool::worker_loop_()
 bool SPDLOG_INLINE thread_pool::process_next_msg_()
 {
     async_msg incoming_async_msg;
+    // 同样的，对于出队操作，已经在队列内部进行了加锁操作，所以外面调用的时候不需要加锁
     bool dequeued = q_.dequeue_for(incoming_async_msg, std::chrono::seconds(10));
     if (!dequeued)
     {
