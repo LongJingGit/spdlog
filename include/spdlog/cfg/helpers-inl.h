@@ -21,6 +21,7 @@ namespace cfg {
 namespace helpers {
 
 // inplace convert to lowercase
+// 将字符串中的大写字符全部转换成小写字符
 inline std::string &to_lower_(std::string &str)
 {
     std::transform(
@@ -29,6 +30,7 @@ inline std::string &to_lower_(std::string &str)
 }
 
 // // convert to lower by jinglong in 2021年9月9日20:42:32
+// 将字符串中的大写字符全部转换成小写字符
 // inline std::string &to_lower_1_(std::string &str)
 // {
 //     std::transform(str.begin(), str.end(), str.begin(), [](unsigned char ch) { return std::tolower(ch); });

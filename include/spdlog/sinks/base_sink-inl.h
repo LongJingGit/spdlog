@@ -25,7 +25,7 @@ SPDLOG_INLINE spdlog::sinks::base_sink<Mutex>::base_sink(std::unique_ptr<spdlog:
 template<typename Mutex>
 void SPDLOG_INLINE spdlog::sinks::base_sink<Mutex>::log(const details::log_msg &msg)
 {
-    std::lock_guard<Mutex> lock(mutex_);
+    std::lock_guard<Mutex> lock(mutex_); // 为什么需要在这里加锁？？？因为 sink_it_ 内部会对 msg 进行更改
     sink_it_(msg);
 }
 

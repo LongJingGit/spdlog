@@ -29,6 +29,7 @@ inline void load_argv_levels(int argc, const char **argv)
         std::string arg = argv[i];
         if (arg.find(spdlog_level_prefix) == 0)
         {
+            // 截取从 spdlog_level_prefix 开始到字符串结束位置的字符串
             auto levels_string = arg.substr(spdlog_level_prefix.size());
             helpers::load_levels(levels_string);
         }
@@ -37,6 +38,7 @@ inline void load_argv_levels(int argc, const char **argv)
 
 inline void load_argv_levels(int argc, char **argv)
 {
+    // const_cast 强制类型转换即可以添加 const 属性，也可以删除 const 属性
     load_argv_levels(argc, const_cast<const char **>(argv));
 }
 

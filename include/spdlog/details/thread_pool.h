@@ -79,6 +79,7 @@ struct async_msg : log_msg_buffer
 };
 
 // RAII 手法封装的 thread。marked by jinglong in 2021年9月27日09:49:33
+// 需要单独注意的是，std::thread 的拷贝构造和拷贝赋值被 delete 了，所以不可以用拷贝的方式传递线程对象
 class SPDLOG_API thread_guard
 {
 public:

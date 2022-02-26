@@ -27,20 +27,22 @@
 
 #include <vector>
 
+// clang-format off
 #ifndef SPDLOG_NO_EXCEPTIONS
-#    define SPDLOG_LOGGER_CATCH()                                                                                                          \
-        catch (const std::exception &ex)                                                                                                   \
-        {                                                                                                                                  \
-            err_handler_(ex.what());                                                                                                       \
-        }                                                                                                                                  \
-        catch (...)                                                                                                                        \
-        {                                                                                                                                  \
-            err_handler_("Rethrowing unknown exception in logger");                                                                        \
-            throw;                                                                                                                         \
+#define SPDLOG_LOGGER_CATCH()                                                  \
+        catch (const std::exception &ex)                                       \
+        {                                                                      \
+            err_handler_(ex.what());                                           \
+        }                                                                      \
+        catch (...)                                                            \
+        {                                                                      \
+            err_handler_("Rethrowing unknown exception in logger");            \
+            throw;                                                             \
         }
 #else
-#    define SPDLOG_LOGGER_CATCH()
+#define SPDLOG_LOGGER_CATCH()
 #endif
+// clang-format on
 
 namespace spdlog {
 
