@@ -108,6 +108,8 @@ public:
     template<class T, typename std::enable_if<!is_convertible_to_any_format_string<const T &>::value, int>::type = 0>
     void log(source_loc loc, level::level_enum lvl, const T &msg)
     {
+        // FIXME: 调用到了哪个接口？
+        // void log(source_loc loc, level::level_enum lvl, fmt::format_string<Args...> fmt, Args &&...args)
         log(loc, lvl, "{}", msg);
     }
 
